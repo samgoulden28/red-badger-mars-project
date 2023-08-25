@@ -10,13 +10,13 @@ This led me to the idea of using a TDD approach as I have been provided some inp
 
 # Running the project
 
-Simply run `npm t` to see tests passing
+Simply run `npm i` then `npm t` to see tests passing
 
 ## Step 1 - Initialize Project
 
 The first step is to initialize my project and get Jest running so I will do that.
 
-I added typescript and @types/node as dev dependencies to the project then ran npx tsc --init to make the tsconfig.
+I added typescript and `@types/node` as dev dependencies to the project then ran `npx tsc --init` to make the tsconfig.
 
 I added some simple scripts to package.json to compile and run the app like:
 
@@ -37,17 +37,17 @@ And `npm t` works now!
 As part of this step I want to take the inputs/outputs and add them to test files. This involves a few things:
 
 1. I will make an output function called `run`. Right now I dont know what it will do, but I need to call it in my test to ensure as im working I can work towards the correct result.
-2. I will make three tests (as there are 3 input/output pairs in the project spec) and the expect() call in the tests should match the output
+2. I will make three tests (as there are 3 input/output pairs in the project spec) and the` expect()` call in the tests should match the output
 
 On re-reading the spec I realise there is only 1 rather long output so I will make one test that takes this output instead of 3.
 
-I think I will make the input to the run function a string array because it seems like there could be a variable number of inputs here .
+I think I will make the input to the `run` function a string array because it seems like there could be a variable number of inputs here .
 
 Whilst writing the tests I realised I need prettier in my project to work faster, so I added it.
 
 At the end of this step I have this:
 
-src/index.ts
+`src/index.ts`
 
 ```
 export const run = (input: string[]): string[] => {
@@ -55,7 +55,7 @@ export const run = (input: string[]): string[] => {
 }
 ```
 
-src/index.test.ts
+`src/index.test.ts`
 
 ```
 import { run } from "./index";
@@ -85,7 +85,7 @@ So now I will run `npm t -- --watch` and have this open for the remainder of dev
 
 I like to start with easy stuff and I noticed that the max characters in the input will be 100
 So the first line of the function can simply check that we are not over 100 characters, then I can add a test for that.
-I can use array.join for this.
+I can use `array.join` for this.
 
 Now thats out the way, we need to start reading co-ordinates, firstly the grid. Im going to create a class for this as it makes it easier to extend.
 As I start writing im not sure how advanced this will need to be but I think a class/object will be the most extensible.
@@ -103,7 +103,7 @@ There was also a part of the spec that mentioned the coordinates should never be
 
 Next I wrote some code to read the remaning input and used a combination of a spread operator, a forEach on the remaining input elements and then a modular check to determine if the input is positional or movement
 
-Then I realised it would be handy to house the robot code in a class too, so I made a class with some members x, y, orientation and also it needs to know the grid to check if it can move or not, so I added that too.
+Then I realised it would be handy to house the robot code in a class too, so I made a class with some members `x`, `y`, `orientation` and also it needs to know the `grid` to check if it can move or not, so I added that too.
 
 Then I added some methods to perform the movement and rotations.
 
@@ -124,7 +124,7 @@ Then I just looped the array and performed the correct action on the robot class
 
 For this I needed to add some checks in the movement to see if the next step would lead out of bounds. This is as easy as checking to see if the next grid position is undefined.
 
-I added a catch for this in the grid.get() function to ensure that theres no confusion between an undefined index and an out of bounds array (although I guess theyre the same, its just easier to read this way.)
+I added a catch for this in the `grid.get()` function to ensure that theres no confusion between an undefined index and an out of bounds array (although I guess theyre the same, its just easier to read this way.)
 
 Then I added some code to check if there was a previously lost robot here by checking the current position. Only if there was no robot lost previously AND theres a command to go OOB, would the robot be lost.
 
